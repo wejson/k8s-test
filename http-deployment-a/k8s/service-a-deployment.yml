@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: deployment-a-api
+  name: deployment-a-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: deployment-a-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: deployment-a-api
+    spec:
+      containers:
+        - image: test/service-a
+          name: service-a
+          imagePullPolicy: Never
+          resources: {}
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+status: {}
