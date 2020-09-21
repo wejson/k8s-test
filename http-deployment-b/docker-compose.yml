@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  service-b:
+    build:
+      context: ./
+    ports:
+      - 3002:3000
+      - 9002:9229
+    command: npm run start:debug
+    volumes:
+      - ./src:/app/src:z
+    env_file:
+      - .env.example
+    networks:
+      - zoom-network
+networks:
+  zoom-network:
+    external:
+      name: zoom-network
