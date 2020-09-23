@@ -1,3 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-a-api
+  labels:
+    run: service-a-api
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      protocol: TCP
+      name: https
+  selector:
+    run: service-a-api
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,15 +21,16 @@ metadata:
     app: deployment-a-api
   name: deployment-a-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: deployment-a-api
+      run: service-a-api
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
+        run: service-a-api
         app: deployment-a-api
     spec:
       containers:
